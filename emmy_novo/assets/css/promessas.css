@@ -1,0 +1,184 @@
+#promessas {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  padding: 100px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative bg lines */
+#promessas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 59px,
+      rgba(201,149,107,0.04) 59px,
+      rgba(201,149,107,0.04) 60px
+    );
+  pointer-events: none;
+}
+
+#promessas::after {
+  content: '';
+  position: absolute;
+  bottom: -300px; right: -300px;
+  width: 700px; height: 700px;
+  background: radial-gradient(ellipse, rgba(139,58,74,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.promessas-inner {
+  max-width: 900px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.promessas-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.promessas-header .section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose-gold);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.promessas-header h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.promessas-header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.promessa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.promessa-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(201,149,107,0.12);
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.promessa-item:last-child { border-bottom: none; }
+
+.promessa-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.promessa-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(201,149,107,0.2);
+  line-height: 1;
+  min-width: 60px;
+  text-align: center;
+  transition: color 0.3s;
+}
+
+.promessa-item:hover .promessa-num {
+  color: rgba(201,149,107,0.5);
+}
+
+.promessa-content {
+  padding-top: 8px;
+  flex: 1;
+}
+
+.promessa-content h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--rose-gold-light);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.promessa-content p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.promessas-footer {
+  text-align: center;
+  margin-top: 60px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: var(--rose-gold-light);
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.promessas-footer.visible { opacity: 1; }
+
+.promessas-footer span {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  #promessas { padding: 80px 24px 60px; }
+
+  .promessa-item { gap: 16px; }
+
+  .promessa-num {
+    font-size: 2.5rem;
+    min-width: 40px;
+  }
+
+  .promessa-content h3 { font-size: 1.5rem; }
+}
+
+/* ── Extra responsive ──────────────────────────────── */
+@media (max-width: 480px) {
+  #promessas { padding: 70px 18px 50px; }
+  .promessa-num { font-size: 2rem; min-width: 32px; }
+  .promessa-content h3 { font-size: 1.3rem; }
+  .promessa-content p { font-size: 0.95rem; }
+  .promessas-header h2 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+}

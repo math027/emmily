@@ -1,0 +1,293 @@
+#galeria {
+  min-height: 100vh;
+  background: var(--bg-dark2);
+  padding: 100px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+#galeria::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(ellipse, rgba(139,58,74,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.galeria-header {
+  text-align: center;
+  margin-bottom: 64px;
+  position: relative;
+  z-index: 2;
+}
+
+.galeria-header .section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose-gold);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.galeria-header h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.galeria-header .divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--rose-gold), transparent);
+  margin: 20px auto 0;
+}
+
+/* Photo Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.photo-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  aspect-ratio: 3/4;
+  background: #1a1515;
+}
+
+.photo-card.wide {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+
+.photo-card.tall {
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.photo-card:hover img {
+  transform: scale(1.07);
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,10,11,0.85) 0%, rgba(13,10,11,0.1) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 16px;
+}
+
+.photo-card:hover .photo-overlay {
+  opacity: 1;
+}
+
+.photo-caption {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.4rem;
+  color: #fff;
+  line-height: 1.3;
+  transform: translateY(8px);
+  transition: transform 0.4s ease;
+}
+
+.photo-card:hover .photo-caption {
+  transform: translateY(0);
+}
+
+/* Entrance animation */
+.photo-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease, filter 0.4s ease;
+}
+
+.photo-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+
+.lightbox-caption {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: var(--rose-gold-light);
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 28px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--rose-gold-light);
+  font-size: 1.5rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(201,149,107,0.15);
+  border: 1px solid rgba(201,149,107,0.3);
+  color: var(--rose-gold-light);
+  font-size: 1.4rem;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-nav:hover { background: rgba(201,149,107,0.3); }
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+
+@media (max-width: 768px) {
+  #galeria { padding: 80px 20px 60px; }
+
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .photo-card.wide {
+    grid-column: span 2;
+    aspect-ratio: 4/3;
+  }
+
+  .photo-card.tall {
+    grid-row: span 1;
+  }
+
+  .lightbox-nav { display: none; }
+}
+
+@media (max-width: 480px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+  .photo-card.wide { grid-column: span 1; }
+}
+
+/* ── Show More Button ──────────────────────────────── */
+.galeria-footer {
+  text-align: center;
+  margin-top: 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.btn-ver-mais {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 36px;
+  background: transparent;
+  border: 1px solid rgba(201,149,107,0.4);
+  border-radius: 4px;
+  color: var(--rose-gold-light);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ver-mais::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(201,149,107,0.08);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.btn-ver-mais:hover { border-color: rgba(201,149,107,0.7); color: #fff; }
+.btn-ver-mais:hover::before { transform: scaleX(1); }
+
+.btn-ver-mais .btn-icon {
+  transition: transform 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.btn-ver-mais:hover .btn-icon { transform: translateY(3px); }
+
+.btn-ver-mais.loading { pointer-events: none; opacity: 0.6; }
+
+/* ── Hidden extra photos ───────────────────────────── */
+.photo-card.extra {
+  display: none;
+}
+
+.photo-card.extra.revealed {
+  display: block;
+}

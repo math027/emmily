@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Lato:wght@300;400&display=swap');
+
+:root {
+  --bg-dark: #0d0a0b;
+  --bg-dark2: #130f10;
+  --rose-gold: #c9956b;
+  --rose-gold-light: #e8c4a4;
+  --deep-rose: #8b3a4a;
+  --cream: #f5e6d3;
+  --text-light: #f0e6e0;
+  --text-muted: #a08080;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+section {
+  min-height: 100vh;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(13, 10, 11, 0.88);
+  backdrop-filter: blur(14px);
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  padding: 15px 20px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(201, 149, 107, 0.18);
+}
+
+nav a {
+  color: var(--rose-gold-light);
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: color 0.3s;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -3px;
+  width: 0; height: 1px;
+  background: var(--rose-gold);
+  transition: width 0.3s;
+}
+
+nav a:hover { color: var(--rose-gold); }
+nav a:hover::after { width: 100%; }
+
+/* ── Global Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  nav {
+    gap: 14px;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    gap: 10px 16px;
+    padding: 10px 12px;
+  }
+
+  nav a { font-size: 0.68rem; }
+}
+
+/* Shake animation used in chat */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
